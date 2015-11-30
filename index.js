@@ -1,8 +1,34 @@
 var express = require('express');
 var app = express();
 
-app.get('/', function (req, res) {
-  res.send('Hello World!');
+app.get('/entry/:entryId', function (req, res) {
+  
+  var entries = {
+    1: {
+    firstName: "John",
+    lastName: "Smith",
+    emails: [
+      {type: "home", address: "john@smith.com"},
+      {type: "work", address: "jsmith@megacorp.com"}
+      ]
+    }, 
+    2: {
+    firstName: "Mary",
+    lastName: "Poppins",
+    emails: [
+      {type: "home", address: "mary@poppins.com"},
+      {type: "work", address: "mpoppins@megacorp.com"}
+      ]
+    }
+  };
+  
+  var userInput = entries[req.params.entryId];
+  
+    if (userInput){
+      res.json(userInput);
+    } else {
+      res.sendStatus(404);
+    }
 });
 
 
